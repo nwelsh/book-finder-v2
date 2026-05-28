@@ -1,5 +1,9 @@
 1:"$Sreact.fragment"
-2:I[97367,["/book-finder-v2/_next/static/chunks/0dbhjjzl8qfwv.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black","children":"test NICOLE NICOLE NICOLE"}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Og_DlifbCmC9A-TakoNhg"}
-4:null
+2:I[47257,["/book-finder-v2/_next/static/chunks/0dbhjjzl8qfwv.js"],"ClientPageRoot"]
+3:I[31713,["/book-finder-v2/_next/static/chunks/0dbhjjzl8qfwv.js","/book-finder-v2/_next/static/chunks/0lr3_om-wmtr8.js"],"default"]
+6:I[97367,["/book-finder-v2/_next/static/chunks/0dbhjjzl8qfwv.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/book-finder-v2/_next/static/chunks/0lr3_om-wmtr8.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"mE7e5wMkrCDhm-55PTlAJ"}
+4:{}
+5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
+8:null

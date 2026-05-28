@@ -1,2 +1,2 @@
-:HL["/book-finder-v2/_next/static/chunks/0boxhxp3pbluo.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"Og_DlifbCmC9A-TakoNhg"}
+:HL["/book-finder-v2/_next/static/chunks/0u2xc6rs~40tg.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"mE7e5wMkrCDhm-55PTlAJ"}
