@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import './page.css';
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -27,8 +28,9 @@ export default function Home() {
   }
 
   return (
-    <main className="p-8 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Read Free Finder</h1>
+    <main className="main">
+      <h1 className="header">Nicole's book finder</h1>
+      <p className="descText">Search to find if a book is at the CPL or kindle unlimited</p>
 
       <div className="flex gap-2 mb-6">
         <input
