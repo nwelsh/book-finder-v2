@@ -34,7 +34,7 @@ export default function Home() {
 
       <div className="flex gap-2 mb-6">
         <input
-          className="border p-2 flex-1 rounded"
+          className="searchBar"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search books..."
@@ -42,7 +42,7 @@ export default function Home() {
 
         <button
           type="button"
-          className="bg-black text-white px-4 py-2 rounded"
+          className="searchButton"
           onClick={handleSearch}
         >
           Search

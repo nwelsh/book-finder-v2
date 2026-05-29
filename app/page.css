@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 16rem;
   gap: 1rem;
+  align-items: center;
   background-color: rgb(255, 224, 229);
 }
 
@@ -17,6 +18,20 @@
   font-size: 16px;
   align-self: center;
   color: rgb(68, 160, 3);
+}
+
+.searchBar {
+  border: 1px solid rgb(255, 72, 249);
+  padding: 1rem;
+  border-radius: 1rem;
+  align-items: center;
+}
+
+.searchButton {
+  background-color: rgb(255, 72, 249);
+  padding: 16px;
+  border-radius: 1rem;
+  color: white;
 }
 
 @media (max-width: 768px) {
