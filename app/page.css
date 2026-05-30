@@ -1,10 +1,11 @@
 .main {
   display: flex;
   flex-direction: column;
-  padding: 16rem;
+  padding: 1rem;
   gap: 1rem;
   align-items: center;
   background-color: rgb(255, 224, 229);
+  flex: 1;
 }
 
 .header {
@@ -40,5 +41,9 @@
     justify-content: flex-start;
     align-items: flex-start;
     border: 1px solid red;
+  }
+
+  .descText, .header {
+    align-self: flex-start;
   }
 }
