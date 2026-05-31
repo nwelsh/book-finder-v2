@@ -1,25 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import './page.css';
+import "./page.css";
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_KEY;
 
   async function handleSearch() {
     try {
       setLoading(true);
 
       const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}`,
+        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
+          query,
+        )}&key=${API_KEY}`,
       );
 
       const data = await res.json();
-      console.log("data", data)
+      console.log("data", data);
 
-      setBooks(data);
+      setBooks(data.items || []);
     } catch (error) {
       console.error(error);
     } finally {
@@ -30,7 +33,9 @@ export default function Home() {
   return (
     <main className="main">
       <h1 className="header">Nicole's book finder</h1>
-      <p className="descText">Search to find if a book is at the CPL or kindle unlimited</p>
+      <p className="descText">
+        Search to find if a book is at the CPL or kindle unlimited
+      </p>
 
       <div className="flex gap-2 mb-6">
         <input
@@ -40,11 +45,7 @@ export default function Home() {
           placeholder="Search books..."
         />
 
-        <button
-          type="button"
-          className="searchButton"
-          onClick={handleSearch}
-        >
+        <button type="button" className="searchButton" onClick={handleSearch}>
           Search
         </button>
       </div>
@@ -55,48 +56,37 @@ export default function Home() {
       )}
 
       <div className="grid gap-4">
-        {books.length > 0 && books.map((book) => (
-          <div key={book.id} className="border rounded-lg p-4 flex gap-4">
-            {book.thumbnail && (
-              <img
-                src={book.thumbnail}
-                alt={book.title}
-                className="w-24 h-auto rounded"
-              />
-            )}
+        {books.length > 0 &&
+          books.map((book) => {
+            const info = book.volumeInfo;
 
-            <div>
-              <h2 className="text-xl font-bold">{book.title}</h2>
+            return (
+              <div key={book.id} className="border rounded-lg p-4 flex gap-4">
+                {info.imageLinks?.thumbnail && (
+                  <img
+                    src={info.imageLinks.thumbnail}
+                    alt={info.title}
+                    className="w-24 h-auto rounded"
+                  />
+                )}
 
-              <p className="text-gray-600">{book.authors.join(", ")}</p>
+                <div>
+                  <h2 className="text-xl font-bold">{info.title}</h2>
 
-              <p className="mt-2">
-                {book.kindleUnlimited
-                  ? "✅ Kindle Unlimited"
-                  : "❌ Not on Kindle Unlimited"}
-              </p>
-              {book.library.exists ? (
-                <div className="mt-2">
-                  <p className="font-semibold">Chicago Public Library</p>
+                  <p className="text-gray-600">
+                    {info.authors?.join(", ") || "Unknown author"}
+                  </p>
 
-                  {book.library.ebookAvailable && <p>📖 Ebook Available Now</p>}
+                  {/* placeholder until you wire up real data */}
+                  <p className="mt-2">
+                    ❌ Kindle Unlimited check not implemented
+                  </p>
 
-                  {book.library.ebookWaitlist && <p>⏳ Ebook Waitlist</p>}
-
-                  {book.library.audiobookAvailable && (
-                    <p>🎧 Audiobook Available Now</p>
-                  )}
-
-                  {book.library.audiobookWaitlist && (
-                    <p>⏳ Audiobook Waitlist</p>
-                  )}
+                  <p>❌ Chicago Public Library check not implemented</p>
                 </div>
-              ) : (
-                <p>❌ Not in Chicago Public Library - test</p>
-              )}
-            </div>
-          </div>
-        ))}
+              </div>
+            );
+          })}
       </div>
     </main>
   );
