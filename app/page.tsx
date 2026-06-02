@@ -66,7 +66,7 @@ export default function Home() {
           className="searchBar"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search books..."
+          placeholder="Search books"
         />
 
         <button type="button" className="searchButton" onClick={handleSearch}>
@@ -75,7 +75,7 @@ export default function Home() {
       </div>
       {loading && (
         <div className="text-center py-8">
-          <p className="text-lg font-medium">Loading...</p>
+          <p className="loadingText">Loading...</p>
         </div>
       )}
 

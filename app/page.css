@@ -9,36 +9,39 @@
 }
 
 .header {
-  font-size: 24px;
+  font-size: 48px;
   font-weight: bold;
   align-self: center;
   color: rgb(255, 255, 255);
 }
 
-.descText {
+.descText,
+.loadingText {
   font-size: 16px;
   align-self: center;
   color: rgb(255, 255, 255);
 }
 
 .searchBarContainer {
-    display: flex;
-    gap: 16px;
+  display: flex;
+  gap: 16px;
+  margin-top: 2rem;
 }
 
 .searchBar {
   border: 1px solid rgb(255, 255, 255);
-  padding: 1rem;
-  border-radius: 1rem;
-  align-items: center;
+  align-items: flex-start;
   color: white;
+  border-radius: 2rem;
+  padding: 0.5rem;
 }
 
 .searchButton {
   background-color: rgb(255, 255, 255);
-  padding: 16px;
-  border-radius: 1rem;
+  padding: 0.5rem;
+  border-radius: 2rem;
   color: #242e56;
+  align-items: flex-start;
 }
 
 @media (max-width: 768px) {
