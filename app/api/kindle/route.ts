@@ -6,7 +6,7 @@ export async function GET(req: Request) {
   const title = searchParams.get("title");
 
   if (!title) {
-    return NextResponse.json({ error: "Missing title" }, { status: 400 });
+    return NextResponse.json({ error: "missing title" }, { status: 400 });
   }
 
   const result = await checkKindleUnlimited(title);

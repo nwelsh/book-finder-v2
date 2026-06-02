@@ -1,50 +1,29 @@
-import { chromium } from "playwright";
-
 export async function checkKindleUnlimited(
   title: string
 ): Promise<boolean> {
-  const browser = await chromium.launch({
-    headless: true,
-  });
-
-  const page = await browser.newPage();
-
   try {
-    // Search Amazon
     const searchUrl = `https://www.amazon.com/s?k=${encodeURIComponent(
       title
     )}`;
 
-    await page.goto(searchUrl, {
-      waitUntil: "domcontentloaded",
-      timeout: 30000,
+    const res = await fetch(searchUrl, {
+      headers: {
+        // helps avoid some basic bot blocking
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36",
+        Accept: "text/html",
+      },
     });
 
-    // Click first product result
-    const firstLink = page.locator(
-      'a[href*="/dp/"]'
-    ).first();
-
-    await firstLink.click();
-
-    await page.waitForLoadState("domcontentloaded");
-
-    // Read product page text
-    const bodyText =
-      (await page.textContent("body")) || "";
-
-    console.log(bodyText);
+    const html = await res.text();
 
     return (
-      bodyText.includes("Kindle Unlimited") ||
-      bodyText.includes("Read for Free") ||
-      bodyText.includes("Included with Kindle Unlimited")
+      html.includes("Kindle Unlimited") ||
+      html.includes("Read for Free") ||
+      html.includes("Included with Kindle Unlimited")
     );
   } catch (error) {
     console.error("KU CHECK ERROR:", error);
-
     return false;
-  } finally {
-    await browser.close();
   }
 }

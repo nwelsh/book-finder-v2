@@ -4,7 +4,7 @@
   padding: 1rem;
   gap: 1rem;
   align-items: center;
-  background-color: rgb(255, 224, 229);
+  background-color: #242e56;
   flex: 1;
 }
 
@@ -12,27 +12,33 @@
   font-size: 24px;
   font-weight: bold;
   align-self: center;
-  color: rgb(255, 72, 249);
+  color: rgb(255, 255, 255);
 }
 
 .descText {
   font-size: 16px;
   align-self: center;
-  color: rgb(68, 160, 3);
+  color: rgb(255, 255, 255);
+}
+
+.searchBarContainer {
+    display: flex;
+    gap: 16px;
 }
 
 .searchBar {
-  border: 1px solid rgb(255, 72, 249);
+  border: 1px solid rgb(255, 255, 255);
   padding: 1rem;
   border-radius: 1rem;
   align-items: center;
+  color: white;
 }
 
 .searchButton {
-  background-color: rgb(255, 72, 249);
+  background-color: rgb(255, 255, 255);
   padding: 16px;
   border-radius: 1rem;
-  color: white;
+  color: #242e56;
 }
 
 @media (max-width: 768px) {
@@ -43,7 +49,8 @@
     border: 1px solid red;
   }
 
-  .descText, .header {
+  .descText,
+  .header {
     align-self: flex-start;
   }
 }

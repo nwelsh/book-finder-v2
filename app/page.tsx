@@ -2,27 +2,51 @@
 
 import { useState } from "react";
 import "./page.css";
+import { checkKindleUnlimited } from "./lib/kindle";
+import pLimit from "p-limit";
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_KEY;
+  const limit = pLimit(2);
 
   async function handleSearch() {
     try {
       setLoading(true);
 
       const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
-          query,
-        )}&key=${API_KEY}`,
+        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`,
       );
 
       const data = await res.json();
-      console.log("data", data);
 
-      setBooks(data.items || []);
+      const items = data.items || [];
+
+      // enrich books with Kindle data
+      const enrichedBooks = await Promise.all(
+        items.map((book: any) =>
+          limit(async () => {
+            const info = book.volumeInfo;
+
+            let kindleUnlimited = false;
+
+            try {
+              kindleUnlimited = await checkKindleUnlimited(info.title);
+            } catch (err) {
+              console.error(err);
+            }
+
+            return {
+              id: book.id,
+              volumeInfo: info,
+              kindleUnlimited,
+            };
+          }),
+        ),
+      );
+
+      setBooks(enrichedBooks);
     } catch (error) {
       console.error(error);
     } finally {
@@ -37,7 +61,7 @@ export default function Home() {
         Search to find if a book is at the CPL or kindle unlimited
       </p>
 
-      <div className="flex gap-2 mb-6">
+      <div className="searchBarContainer">
         <input
           className="searchBar"
           value={query}
@@ -79,7 +103,9 @@ export default function Home() {
 
                   {/* placeholder until you wire up real data */}
                   <p className="mt-2">
-                    ❌ Kindle Unlimited check not implemented
+                    {book.kindleUnlimited
+                      ? "✅ Kindle Unlimited"
+                      : "❌ Not on Kindle Unlimited"}
                   </p>
 
                   <p>❌ Chicago Public Library check not implemented</p>
