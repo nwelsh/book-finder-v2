@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import "./page.css";
-import { checkKindleUnlimited } from "./lib/kindle";
 import pLimit from "p-limit";
+const limit = pLimit(2);
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const limit = pLimit(2);
 
   async function handleSearch() {
     try {
@@ -32,7 +31,13 @@ export default function Home() {
             let kindleUnlimited = false;
 
             try {
-              kindleUnlimited = await checkKindleUnlimited(info.title);
+              const kuRes = await fetch(
+                `/api/kindle?title=${encodeURIComponent(info.title)}`,
+              );
+
+              const kuData = await kuRes.json();
+
+              kindleUnlimited = kuData.kindleUnlimited;
             } catch (err) {
               console.error(err);
             }
