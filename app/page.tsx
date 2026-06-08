@@ -3,6 +3,8 @@
 import { useState } from "react";
 import "./page.css";
 import pLimit from "p-limit";
+import { checkKindleUnlimited } from "@/app/lib/kindle";
+
 const limit = pLimit(2);
 
 export default function Home() {
@@ -11,18 +13,21 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   async function handleSearch() {
+    if (!query.trim()) return;
+
     try {
       setLoading(true);
 
       const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`,
+        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
+          query
+        )}`
       );
 
       const data = await res.json();
 
       const items = data.items || [];
 
-      // enrich books with Kindle data
       const enrichedBooks = await Promise.all(
         items.map((book: any) =>
           limit(async () => {
@@ -31,15 +36,14 @@ export default function Home() {
             let kindleUnlimited = false;
 
             try {
-              const kuRes = await fetch(
-                `/api/kindle?title=${encodeURIComponent(info.title)}`,
+              kindleUnlimited = await checkKindleUnlimited(
+                info.title || ""
               );
-
-              const kuData = await kuRes.json();
-
-              kindleUnlimited = kuData.kindleUnlimited;
             } catch (err) {
-              console.error(err);
+              console.error(
+                `Kindle check failed for ${info.title}`,
+                err
+              );
             }
 
             return {
@@ -47,13 +51,13 @@ export default function Home() {
               volumeInfo: info,
               kindleUnlimited,
             };
-          }),
-        ),
+          })
+        )
       );
 
       setBooks(enrichedBooks);
     } catch (error) {
-      console.error(error);
+      console.error("Search error:", error);
     } finally {
       setLoading(false);
     }
@@ -62,8 +66,9 @@ export default function Home() {
   return (
     <main className="main">
       <h1 className="header">Nicole's book finder</h1>
+
       <p className="descText">
-        Search to find if a book is at the CPL or kindle unlimited
+        Search to find if a book is at the CPL or Kindle Unlimited
       </p>
 
       <div className="searchBarContainer">
@@ -74,50 +79,61 @@ export default function Home() {
           placeholder="Search books"
         />
 
-        <button type="button" className="searchButton" onClick={handleSearch}>
+        <button
+          type="button"
+          className="searchButton"
+          onClick={handleSearch}
+        >
           Search
         </button>
       </div>
+
       {loading && (
-        <div className="text-center py-8">
+        <div>
           <p className="loadingText">Loading...</p>
         </div>
       )}
 
       <div className="grid gap-4">
-        {books.length > 0 &&
-          books.map((book) => {
-            const info = book.volumeInfo;
+        {books.map((book) => {
+          const info = book.volumeInfo;
 
-            return (
-              <div key={book.id} className="border rounded-lg p-4 flex gap-4">
-                {info.imageLinks?.thumbnail && (
-                  <img
-                    src={info.imageLinks.thumbnail}
-                    alt={info.title}
-                    className="w-24 h-auto rounded"
-                  />
-                )}
+          return (
+            <div
+              key={book.id}
+              className="border rounded-lg p-4 flex gap-4"
+            >
+              {info.imageLinks?.thumbnail && (
+                <img
+                  src={info.imageLinks.thumbnail}
+                  alt={info.title}
+                  className="w-24 h-auto rounded"
+                />
+              )}
 
-                <div>
-                  <h2 className="text-xl font-bold">{info.title}</h2>
+              <div>
+                <h2 className="text-xl font-bold">
+                  {info.title}
+                </h2>
 
-                  <p className="text-gray-600">
-                    {info.authors?.join(", ") || "Unknown author"}
-                  </p>
+                <p className="text-gray-600">
+                  {info.authors?.join(", ") ||
+                    "Unknown author"}
+                </p>
 
-                  {/* placeholder until you wire up real data */}
-                  <p className="mt-2">
-                    {book.kindleUnlimited
-                      ? "✅ Kindle Unlimited"
-                      : "❌ Not on Kindle Unlimited"}
-                  </p>
+                <p className="mt-2">
+                  {book.kindleUnlimited
+                    ? "✅ Kindle Unlimited"
+                    : "❌ Not on Kindle Unlimited"}
+                </p>
 
-                  <p>❌ Chicago Public Library check not implemented</p>
-                </div>
+                <p>
+                  ❌ Chicago Public Library check not implemented
+                </p>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
     </main>
   );
