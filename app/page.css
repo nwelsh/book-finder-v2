@@ -26,7 +26,7 @@
 .searchBarContainer {
   display: flex;
   gap: 16px;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .searchBar {
@@ -34,7 +34,12 @@
   align-items: flex-start;
   color: white;
   border-radius: 2rem;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.searchBar:focus {
+  border-color: rgb(174, 247, 255);
+  outline: none;
 }
 
 .searchButton {
@@ -43,6 +48,11 @@
   border-radius: 2rem;
   color: #242e56;
   align-items: flex-start;
+  transition: background-color 0.5s ease;
+}
+
+.searchButton:hover {
+  background-color: rgb(174, 247, 255);
 }
 
 @media (max-width: 768px) {
