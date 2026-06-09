@@ -6,6 +6,7 @@
   align-items: center;
   background-color: #242e56;
   flex: 1;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .header {
@@ -33,12 +34,12 @@
   align-items: flex-start;
   color: white;
   border-radius: 2rem;
-  padding: 0.5rem;
+  padding: .5rem 1rem;
 }
 
 .searchButton {
   background-color: rgb(255, 255, 255);
-  padding: 0.5rem;
+  padding: 0 1rem;
   border-radius: 2rem;
   color: #242e56;
   align-items: flex-start;
