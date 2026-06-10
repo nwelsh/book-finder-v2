@@ -38,6 +38,7 @@
   color: white;
   border-radius: 2rem;
   padding: 0.5rem 1rem;
+  width: 100%;
 }
 
 .searchBar:focus {
