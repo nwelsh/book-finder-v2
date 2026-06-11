@@ -94,7 +94,7 @@ export default function Home() {
           const info = book.volumeInfo;
 
           return (
-            <div key={book.id} className="border rounded-lg p-4 flex gap-4">
+            <div key={book.id} className="bookCard">
               {info.imageLinks?.thumbnail && (
                 <img
                   src={info.imageLinks.thumbnail}

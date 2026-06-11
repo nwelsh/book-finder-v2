@@ -59,6 +59,14 @@
   background-color: rgb(174, 247, 255);
 }
 
+.bookCard {
+    background-color: white;
+    display: flex;
+    gap: .5rem;
+    padding: .5rem;
+    border-radius: 1rem;
+}
+
 @media (max-width: 768px) {
   .main {
     display: flex;
