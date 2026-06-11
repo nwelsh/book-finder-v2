@@ -20,13 +20,17 @@ export default function Home() {
 
       const res = await fetch(
         `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
-          query
-        )}`
+          query,
+        )}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_KEY}`,
       );
 
+      console.log("Google response:", res.status);
+
       const data = await res.json();
+      console.log(data);
 
       const items = data.items || [];
+      console.log("Items found:", items.length);
 
       const enrichedBooks = await Promise.all(
         items.map((book: any) =>
@@ -36,14 +40,9 @@ export default function Home() {
             let kindleUnlimited = false;
 
             try {
-              kindleUnlimited = await checkKindleUnlimited(
-                info.title || ""
-              );
+              kindleUnlimited = await checkKindleUnlimited(info.title || "");
             } catch (err) {
-              console.error(
-                `Kindle check failed for ${info.title}`,
-                err
-              );
+              console.error(`Kindle check failed for ${info.title}`, err);
             }
 
             return {
@@ -51,8 +50,8 @@ export default function Home() {
               volumeInfo: info,
               kindleUnlimited,
             };
-          })
-        )
+          }),
+        ),
       );
 
       setBooks(enrichedBooks);
@@ -79,11 +78,7 @@ export default function Home() {
           placeholder="Search books"
         />
 
-        <button
-          type="button"
-          className="searchButton"
-          onClick={handleSearch}
-        >
+        <button type="button" className="searchButton" onClick={handleSearch}>
           Search
         </button>
       </div>
@@ -99,10 +94,7 @@ export default function Home() {
           const info = book.volumeInfo;
 
           return (
-            <div
-              key={book.id}
-              className="border rounded-lg p-4 flex gap-4"
-            >
+            <div key={book.id} className="border rounded-lg p-4 flex gap-4">
               {info.imageLinks?.thumbnail && (
                 <img
                   src={info.imageLinks.thumbnail}
@@ -112,13 +104,10 @@ export default function Home() {
               )}
 
               <div>
-                <h2 className="text-xl font-bold">
-                  {info.title}
-                </h2>
+                <h2 className="text-xl font-bold">{info.title}</h2>
 
                 <p className="text-gray-600">
-                  {info.authors?.join(", ") ||
-                    "Unknown author"}
+                  {info.authors?.join(", ") || "Unknown author"}
                 </p>
 
                 <p className="mt-2">
@@ -127,9 +116,7 @@ export default function Home() {
                     : "❌ Not on Kindle Unlimited"}
                 </p>
 
-                <p>
-                  ❌ Chicago Public Library check not implemented
-                </p>
+                <p>❌ Chicago Public Library check not implemented</p>
               </div>
             </div>
           );
