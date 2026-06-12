@@ -59,6 +59,12 @@
   background-color: rgb(174, 247, 255);
 }
 
+.booksContainer {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
 .bookCard {
     background-color: white;
     display: flex;

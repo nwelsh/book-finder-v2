@@ -89,7 +89,7 @@ export default function Home() {
         </div>
       )}
 
-      <div className="grid gap-4">
+      <div className="booksContainer">
         {books.map((book) => {
           const info = book.volumeInfo;
 
