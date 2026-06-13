@@ -16,6 +16,8 @@ export async function checkKindleUnlimited(
     });
 
     const html = await res.text();
+    console.log(res.status);
+console.log(html.slice(0, 2000));
 
     return (
       html.includes("Kindle Unlimited") ||

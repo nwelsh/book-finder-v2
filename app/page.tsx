@@ -40,7 +40,13 @@ export default function Home() {
             let kindleUnlimited = false;
 
             try {
-              kindleUnlimited = await checkKindleUnlimited(info.title || "");
+              const kuRes = await fetch(
+                `/api/kindle?title=${encodeURIComponent(info.title || "")}`,
+              );
+
+              const kuData = await kuRes.json();
+
+              kindleUnlimited = kuData.kindleUnlimited;
             } catch (err) {
               console.error(`Kindle check failed for ${info.title}`, err);
             }

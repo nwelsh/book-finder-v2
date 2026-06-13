@@ -1,15 +1,19 @@
-import { NextResponse } from "next/server";
-import { checkKindleUnlimited } from "@/app/api/kindle/kindle";
+import { NextRequest, NextResponse } from "next/server";
+import { checkKindleUnlimited } from "./kindle";
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const title = searchParams.get("title");
+export async function GET(req: NextRequest) {
+  const title = req.nextUrl.searchParams.get("title");
 
   if (!title) {
-    return NextResponse.json({ error: "Missing title" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Missing title" },
+      { status: 400 }
+    );
   }
 
-  const result = await checkKindleUnlimited(title);
+  const kindleUnlimited = await checkKindleUnlimited(title);
 
-  return NextResponse.json({ kindleUnlimited: result });
+  return NextResponse.json({
+    kindleUnlimited,
+  });
 }
