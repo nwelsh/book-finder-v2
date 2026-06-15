@@ -15,9 +15,11 @@ export async function checkKindleUnlimited(
       },
     });
 
+      console.log("CHECKING:", title);
+
     const html = await res.text();
-    console.log(res.status);
-console.log(html.slice(0, 2000));
+    console.log("status", res.status);
+console.log("html slice", html.slice(0, 2000));
 
     return (
       html.includes("Kindle Unlimited") ||
