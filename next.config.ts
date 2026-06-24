@@ -1,7 +1,5 @@
-const nextConfig = {
-  output: "export",
-  basePath: "/book-finder-v2",
-  assetPrefix: "/book-finder-v2/",
-};
+import type { NextConfig } from "next";
 
-module.exports = nextConfig;
+const nextConfig: NextConfig = {};
+
+export default nextConfig;
