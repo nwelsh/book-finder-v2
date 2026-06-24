@@ -60,17 +60,17 @@
 }
 
 .booksContainer {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .bookCard {
-    background-color: white;
-    display: flex;
-    gap: .5rem;
-    padding: .5rem;
-    border-radius: 1rem;
+  background-color: white;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -83,5 +83,10 @@
   .descText,
   .header {
     align-self: flex-start;
+  }
+
+  .searchBarContainer {
+    display: flex;
+    flex-direction: column;
   }
 }
