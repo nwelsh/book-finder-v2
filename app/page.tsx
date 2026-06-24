@@ -24,7 +24,7 @@ export default function Home() {
         )}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_KEY}`,
       );
 
-      console.log("Google response:", res.status);
+      console.log("Google response: ", res.status);
 
       const data = await res.json();
       console.log(data);
