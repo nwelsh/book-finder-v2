@@ -89,4 +89,8 @@
     display: flex;
     flex-direction: column;
   }
+
+  .searchBar, .searchButton {
+    height: 50px;
+  }
 }
