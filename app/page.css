@@ -88,9 +88,12 @@
   .searchBarContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
-  .searchBar, .searchButton {
+  .searchBar,
+  .searchButton {
     height: 50px;
+    width: 100%;
   }
 }
