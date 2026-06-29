@@ -122,7 +122,7 @@ export default function Home() {
                     : "❌ Not on Kindle Unlimited"}
                 </p>
 
-                <p>❌ Chicago Public Library check not implemented</p>
+                <p>❌ Chicago Public Library TODO</p>
               </div>
             </div>
           );
