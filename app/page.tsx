@@ -70,7 +70,7 @@ export default function Home() {
 
   return (
     <main className="main">
-      <h1 className="header">Nicole's book finder</h1>
+      <h1 className="header">Nicole's KU + CPL book finder</h1>
 
       <p className="descText">
         Search to find if a book is at the CPL or Kindle Unlimited
