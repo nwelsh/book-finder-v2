@@ -146,14 +146,12 @@ export default function Home() {
                 <p>
                   {book.chicagoLibrary ? (
                     <>
-                      ✅ Chicago Public Library{" "}
+                      ✅ CPL
                       <a
                         href={book.libraryUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                      >
-                        View
-                      </a>
+                      ></a>
                     </>
                   ) : (
                     "❌ Not found at Chicago Public Library"
