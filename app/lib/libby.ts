@@ -1,69 +1,37 @@
-import axios from "axios";
-
 export async function checkChicagoLibrary(
-  title: string
+  title: string,
+  author?: string,
 ) {
   try {
-    const response = await axios.get(
-      "https://thunder.api.overdrive.com/v2/libraries/chicago/media",
-      {
-        params: {
-          query: title,
-          maxItems: 10,
-        },
-      }
+    const query = encodeURIComponent(
+      author ? `${title} ${author}` : title,
     );
 
-    const items = response.data.items || [];
+    const url = `https://chipublib.bibliocommons.com/v2/search?query=${query}&searchType=smart`;
 
-    let ebookAvailable = false;
-    let ebookWaitlist = false;
+    const res = await fetch(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+      },
+    });
 
-    let audiobookAvailable = false;
-    let audiobookWaitlist = false;
+    const html = await res.text();
 
-    for (const item of items) {
-      const formats = item.formats || [];
-
-      for (const format of formats) {
-        const isAudiobook =
-          format.id?.toLowerCase().includes("audio");
-
-        const available =
-          item.availableCopies > 0;
-
-        if (isAudiobook) {
-          if (available) {
-            audiobookAvailable = true;
-          } else {
-            audiobookWaitlist = true;
-          }
-        } else {
-          if (available) {
-            ebookAvailable = true;
-          } else {
-            ebookWaitlist = true;
-          }
-        }
-      }
-    }
+    const found =
+      html.toLowerCase().includes(title.toLowerCase()) ||
+      html.includes("Search Results");
 
     return {
-      exists: items.length > 0,
-      ebookAvailable,
-      ebookWaitlist,
-      audiobookAvailable,
-      audiobookWaitlist,
+      available: found,
+      url,
     };
-  } catch (error) {
-    console.error("LIBBY ERROR:", error);
+  } catch (e) {
+    console.error(e);
 
     return {
-      exists: false,
-      ebookAvailable: false,
-      ebookWaitlist: false,
-      audiobookAvailable: false,
-      audiobookWaitlist: false,
+      available: false,
+      url: "",
     };
   }
 }

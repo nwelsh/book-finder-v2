@@ -39,6 +39,24 @@ export default function Home() {
 
             let kindleUnlimited = false;
 
+            let chicagoLibrary = false;
+            let libraryUrl = "";
+
+            try {
+              const libRes = await fetch(
+                `/api/library?title=${encodeURIComponent(
+                  info.title || "",
+                )}&author=${encodeURIComponent(info.authors?.[0] || "")}`,
+              );
+
+              const libData = await libRes.json();
+
+              chicagoLibrary = libData.available;
+              libraryUrl = libData.url;
+            } catch (err) {
+              console.error(err);
+            }
+
             try {
               const kuRes = await fetch(
                 `/api/kindle?title=${encodeURIComponent(info.title || "")}`,
@@ -55,6 +73,8 @@ export default function Home() {
               id: book.id,
               volumeInfo: info,
               kindleUnlimited,
+              chicagoLibrary,
+              libraryUrl,
             };
           }),
         ),
@@ -73,7 +93,8 @@ export default function Home() {
       <h1 className="header">KU + CPL book finder</h1>
 
       <p className="descText">
-        Search to find if a book is at the Chicago Public Library or on Kindle Unlimited
+        Search to find if a book is at the Chicago Public Library or on Kindle
+        Unlimited
       </p>
 
       <div className="searchBarContainer">
@@ -122,7 +143,22 @@ export default function Home() {
                     : "❌ Not on Kindle Unlimited"}
                 </p>
 
-                <p>❌ Chicago Public Library TODO</p>
+                <p>
+                  {book.chicagoLibrary ? (
+                    <>
+                      ✅ Chicago Public Library{" "}
+                      <a
+                        href={book.libraryUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View
+                      </a>
+                    </>
+                  ) : (
+                    "❌ Not found at Chicago Public Library"
+                  )}
+                </p>
               </div>
             </div>
           );
