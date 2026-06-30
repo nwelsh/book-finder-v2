@@ -4,16 +4,9 @@ import { checkKindleUnlimited } from "./kindle";
 export async function GET(req: NextRequest) {
   const title = req.nextUrl.searchParams.get("title");
 
-  if (!title) {
-    return NextResponse.json(
-      { error: "Missing title" },
-      { status: 400 }
-    );
-  }
+  console.log("🔥 API ROUTE HIT:", title);
 
-  const kindleUnlimited = await checkKindleUnlimited(title);
+  const kindleUnlimited = await checkKindleUnlimited(title || "");
 
-  return NextResponse.json({
-    kindleUnlimited,
-  });
+  return NextResponse.json({ kindleUnlimited });
 }
