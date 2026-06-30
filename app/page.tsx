@@ -93,7 +93,7 @@ export default function Home() {
       <h1 className="header">KU + CPL book finder</h1>
 
       <p className="descText">
-        Search to find if a book is at the Chicago Public Library or on Kindle
+        Search to find if a book is available from the Chicago Public Library or on Kindle
         Unlimited
       </p>
 
