@@ -16,16 +16,30 @@ export async function checkKindleUnlimited(
     });
 
       console.log("CHECKING:", title);
+const html = await res.text();
 
-    const html = await res.text();
-    console.log("status", res.status);
-console.log("html slice", html.slice(0, 2000));
+console.log("CHECKING:", title);
+console.log("Status:", res.status);
 
-    return (
-      html.includes("Kindle Unlimited") ||
-      html.includes("Read for Free") ||
-      html.includes("Included with Kindle Unlimited")
-    );
+// Find where "Kindle Unlimited" first appears
+const index = html.indexOf("Kindle Unlimited");
+
+console.log("Found at:", index);
+
+if (index !== -1) {
+  console.log(
+    html.slice(
+      Math.max(0, index - 200),
+      Math.min(html.length, index + 500)
+    )
+  );
+}
+
+return (
+  html.includes("Kindle Unlimited") ||
+  html.includes("Read for Free") ||
+  html.includes("Included with Kindle Unlimited")
+);
   } catch (error) {
     console.error("KU CHECK ERROR:", error);
     return false;
