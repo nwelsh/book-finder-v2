@@ -12,6 +12,12 @@
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .header {
   font-size: 48px;
   font-weight: bold;
@@ -74,7 +80,7 @@
 }
 
 @media (max-width: 768px) {
-  .main {
+  .main, .loadingText  {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;

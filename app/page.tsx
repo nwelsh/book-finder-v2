@@ -93,8 +93,8 @@ export default function Home() {
       <h1 className="header">KU + CPL book finder</h1>
 
       <p className="descText">
-        Search to find if a book is available from the Chicago Public Library or on Kindle
-        Unlimited
+        Search to find if a book is available from the Chicago Public Library or
+        on Kindle Unlimited
       </p>
 
       <div className="searchBarContainer">
@@ -137,26 +137,28 @@ export default function Home() {
                   {info.authors?.join(", ") || "Unknown author"}
                 </p>
 
-                <p className="mt-2">
-                  {book.kindleUnlimited
-                    ? "✅ Kindle Unlimited"
-                    : "❌ Not on Kindle Unlimited"}
-                </p>
+                <div className="container">
+                  <p className="mt-2">
+                    {book.kindleUnlimited
+                      ? "✅ Kindle Unlimited"
+                      : "❌ Not on Kindle Unlimited"}
+                  </p>
 
-                <p>
-                  {book.chicagoLibrary ? (
-                    <>
-                      ✅ CPL
-                      <a
-                        href={book.libraryUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      ></a>
-                    </>
-                  ) : (
-                    "❌ Not found at Chicago Public Library"
-                  )}
-                </p>
+                  <p>
+                    {book.chicagoLibrary ? (
+                      <>
+                        ✅ CPL
+                        <a
+                          href={book.libraryUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        ></a>
+                      </>
+                    ) : (
+                      "❌ Not found at Chicago Public Library"
+                    )}
+                  </p>
+                </div>
               </div>
             </div>
           );
