@@ -67,8 +67,9 @@
 
 .booksContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .bookCard {
@@ -77,6 +78,7 @@
   gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 1rem;
+  width: 33%;
 }
 
 @media (max-width: 768px) {
@@ -102,5 +104,9 @@
   .searchButton {
     height: 50px;
     width: 100%;
+  }
+
+  .booksContainer {
+    flex-direction: column;
   }
 }
