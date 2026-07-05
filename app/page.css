@@ -9,13 +9,15 @@
   align-items: center;
   background-color: #242e56;
   flex: 1;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  font-family:
+    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .header {
@@ -81,7 +83,8 @@
 }
 
 @media (max-width: 768px) {
-  .main, .loadingText  {
+  .main,
+  .loadingText {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
